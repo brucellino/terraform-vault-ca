@@ -1,7 +1,2 @@
-# This is the default outputs file.
-# Put all output values here.
+# Vault CA outputs file.
 
-# Example:
-# output "test" {
-#   value = resource.type.name
-# }
