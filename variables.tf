@@ -10,3 +10,21 @@ variable "ca_mount_path" {
   description = "Mount path of the CA PKI secrets engine"
   default     = "pki_module"
 }
+
+variable "ou" {
+  type        = string
+  description = "Organizational Unit name"
+  default     = "CA OU"
+}
+
+variable "org" {
+  type        = string
+  description = "Description of the organization"
+  default     = "Default Organization"
+}
+
+variable "cn" {
+  type        = string
+  description = "Common Name of the certificate being issued. Should be a fqdn"
+  default     = "test.local"
+}
