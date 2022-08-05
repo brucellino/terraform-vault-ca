@@ -1,0 +1,16 @@
+# Vault policy for CA
+
+# Enable secrets engines
+path "sys/mounts/*" {
+  capabilities = ["create", "read", "update", "delete", "list"]
+}
+
+# list enabled secrets engines
+path "sys/mounts" {
+  capabilities = ["read", "list"]
+}
+
+# Work with the PKI secrets engine
+path "${ca_mount_path}" {
+  capabilities = ["create", "read", "update", "list", "sudo"]
+}
