@@ -5,12 +5,17 @@ variable "ca_name" {
   default     = "CA_mod"
 }
 
-variable "ca_mount_path" {
+variable "root_ca_mount_path" {
   type        = string
   description = "Mount path of the CA PKI secrets engine"
-  default     = "pki_module"
+  default     = "pki/test/pki_module/root"
 }
 
+variable "intermediate_ca_mount_path" {
+  type        = string
+  description = "Mount path of the Intermediate CA PKI secrets engine"
+  default     = "pki/test/pki_module/int"
+}
 variable "ou" {
   type        = string
   description = "Organizational Unit name"
