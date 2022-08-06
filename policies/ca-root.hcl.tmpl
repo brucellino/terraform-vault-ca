@@ -10,7 +10,12 @@ path "sys/mounts" {
   capabilities = ["read", "list"]
 }
 
-# Work with the PKI secrets engine
-path "${ca_mount_path}" {
+# Work with the root CA PKI secrets engine
+path "${root_ca_mount_path}" {
+  capabilities = ["create", "read", "update", "list", "sudo"]
+}
+
+# Work with the Intermediate CA PKI secrets engine
+path "${intermediate_ca_mount_path}" {
   capabilities = ["create", "read", "update", "list", "sudo"]
 }
