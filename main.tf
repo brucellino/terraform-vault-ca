@@ -65,3 +65,27 @@ resource "vault_pki_secret_backend_config_urls" "root" {
   ]
   crl_distribution_points = ["http://127.0.0.1:8200/v1/pki_mount/crl"]
 }
+
+
+resource "vault_pki_secret_backend_intermediate_cert_request" "first" {
+  depends_on  = [vault_mount.intermediate_ca]
+  backend     = vault_mount.intermediate_ca.path
+  type        = "internal"
+  common_name = "first.${var.cn}"
+  alt_names   = ["1st.${var.cn}"]
+  key_bits    = 4096
+  # country      = "IT"
+  ou           = var.ou
+  organization = var.org
+  # locality     = "Catania"
+}
+
+resource "vault_pki_secret_backend_root_sign_intermediate" "first" {
+  depends_on = [vault_pki_secret_backend_role.role]
+  backend    = vault_mount.intermediate_ca.path
+  format     = "pem_bundle"
+  # name        = vault_pki_secret_backend_role.role.name
+  csr            = vault_pki_secret_backend_intermediate_cert_request.first.csr
+  common_name    = "first.${var.cn}"
+  use_csr_values = true
+}
