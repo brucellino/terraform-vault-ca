@@ -13,14 +13,14 @@ These examples show how to use the module in your project, and are also use for 
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >1.2.0 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_vault"></a> [vault](#provider\_vault) | 3.8.1 |
+| ---- | ------- |
+| <a name="provider_vault"></a> [vault](#provider\_vault) | 5.12.0 |
 
 ## Modules
 
@@ -29,12 +29,13 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [vault_mount.intermediate_ca](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/mount) | resource |
 | [vault_mount.root_ca](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/mount) | resource |
 | [vault_pki_secret_backend_config_urls.root](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/pki_secret_backend_config_urls) | resource |
 | [vault_pki_secret_backend_intermediate_cert_request.base](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/pki_secret_backend_intermediate_cert_request) | resource |
 | [vault_pki_secret_backend_intermediate_set_signed.base](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/pki_secret_backend_intermediate_set_signed) | resource |
+| [vault_pki_secret_backend_role.int_role](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/pki_secret_backend_role) | resource |
 | [vault_pki_secret_backend_role.role](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/pki_secret_backend_role) | resource |
 | [vault_pki_secret_backend_root_cert.root](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/pki_secret_backend_root_cert) | resource |
 | [vault_pki_secret_backend_root_sign_intermediate.base](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/pki_secret_backend_root_sign_intermediate) | resource |
@@ -43,7 +44,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_ca_name"></a> [ca\_name](#input\_ca\_name) | Name of the CA secrets engine | `string` | `"CA_mod"` | no |
 | <a name="input_intermediate_ca_mount_path"></a> [intermediate\_ca\_mount\_path](#input\_intermediate\_ca\_mount\_path) | Mount path of the Intermediate CA PKI secrets engine | `string` | `"pki/test/pki_module/int_ca"` | no |
 | <a name="input_intermediate_cn"></a> [intermediate\_cn](#input\_intermediate\_cn) | Common Name of the certificate being issued | `string` | `"Intermediate CA cn"` | no |

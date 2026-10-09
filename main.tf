@@ -41,15 +41,22 @@ resource "vault_pki_secret_backend_root_cert" "root" {
   organization         = var.org
 }
 
+# Step 3 - creat the role
 resource "vault_pki_secret_backend_role" "role" {
-  backend          = vault_mount.root_ca.path
-  name             = "test_role"
-  ttl              = 3600
-  allow_ip_sans    = true
-  key_type         = "rsa"
-  key_bits         = 4096
-  allowed_domains  = [var.root_cn]
-  allow_subdomains = true
+  backend = vault_mount.root_ca.path
+  name    = "test_role"
+
+  max_ttl            = 8640000
+  ttl                = 3600
+  allow_ip_sans      = true
+  key_type           = "rsa"
+  key_bits           = 4096
+  allowed_domains    = ["local", "hashiatho.me", "consul"]
+  server_flag        = true
+  allow_localhost    = true
+  allow_bare_domains = true
+  allow_subdomains   = true
+  allow_glob_domains = true
 }
 
 
@@ -70,8 +77,7 @@ resource "vault_mount" "intermediate_ca" {
   description = "Intermediate CA for ${var.ca_name}"
   # Step 2.2 - tune secrets engine
   default_lease_ttl_seconds = 3600
-  max_lease_ttl_seconds     = 87600
-
+  max_lease_ttl_seconds     = 31536000
 }
 
 
@@ -91,8 +97,9 @@ resource "vault_pki_secret_backend_intermediate_cert_request" "base" {
 
 resource "vault_pki_secret_backend_root_sign_intermediate" "base" {
   depends_on     = [vault_pki_secret_backend_role.role]
-  backend        = vault_mount.root_ca.path
+  backend        = vault_mount.intermediate_ca.path
   format         = "pem_bundle"
+  ttl            = "43800h"
   csr            = vault_pki_secret_backend_intermediate_cert_request.base.csr
   common_name    = var.intermediate_cn
   use_csr_values = true
@@ -101,4 +108,17 @@ resource "vault_pki_secret_backend_root_sign_intermediate" "base" {
 resource "vault_pki_secret_backend_intermediate_set_signed" "base" {
   backend     = vault_mount.intermediate_ca.path
   certificate = vault_pki_secret_backend_root_sign_intermediate.base.certificate
+}
+
+resource "vault_pki_secret_backend_role" "int_role" {
+  backend            = vault_mount.intermediate_ca.path
+  name               = "hah"
+  ttl                = 3600
+  allow_ip_sans      = true
+  key_type           = "rsa"
+  key_bits           = 4096
+  allowed_domains    = ["hashiatho.me"]
+  allow_bare_domains = true
+  allow_subdomains   = true
+  allow_glob_domains = true
 }
