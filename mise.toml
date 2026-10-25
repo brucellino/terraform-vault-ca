@@ -4,6 +4,6 @@
 
 [tools]
 terraform = "1.17.0"
-consul = "2.0.4"
+consul = "2.1.0"
 vault = "2.2.0"
 prek = "0.5.7"
